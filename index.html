@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ke Hongrun's Design Portfolio | Art Space</title>
+    <!-- 引入 Tailwind CSS 样式库 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入高表现力的现代无衬线与创意字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Syne:wght@700;800&family=Noto+Sans+SC:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- 引入 Mozilla PDF.js 高清无阻断渲染插件 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Outfit', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+            background-color: #000000; /* 纯黑背景 */
+            color: #F1F9F4; /* 冷白文本 */
+        }
+        .font-syne {
+            font-family: 'Syne', sans-serif;
+        }
+        
+        /* 锚点滚动偏移量 - 避免置顶导航栏遮挡标题 */
+        section {
+            scroll-margin-top: 6rem;
+        }
+        
+        /* 异形圆角类定义 - 严格按照不规则感设计 */
+        .irregular-corners-1 {
+            border-radius: 40px 12px 40px 12px;
+        }
+        .irregular-corners-2 {
+            border-radius: 12px 40px 12px 40px;
+        }
+        .irregular-corners-organic {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+
+        /* 物理辅助像素格栅底图背景 */
+        .pixel-grid-bg {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+        }
+
+        /* =================================================== */
+        /* 🖼️ 像素级物理对齐与超清画质还原系统（杜绝人工锐化） */
+        /* =================================================== */
+        img {
+            transform: none !important;
+            transform-style: flat !important;
+            backface-visibility: visible !important;
+            -webkit-backface-visibility: visible !important;
+            image-rendering: -webkit-optimize-contrast; 
+            image-rendering: crisp-edges;               
+            image-rendering: auto;                      
+            -webkit-user-drag: none;
+        }
+
+        @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+            img {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: high-quality; 
+            }
+        }
+
+        .irregular-corners-1,
+        .irregular-corners-2,
+        .irregular-corners-organic,
+        .overflow-hidden {
+            isolation: isolate; 
+        }
+
+        .irregular-corners-1 img {
+            border-radius: 40px 12px 40px 12px !important;
+        }
+
+        .irregular-corners-2 img {
+            border-radius: 12px 40px 12px 40px !important;
+        }
+
+        .irregular-corners-organic img {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40% !important;
+        }
+
+        .overflow-hidden img {
+            border-radius: inherit; 
+        }
+
+        /* 物理阻尼弹簧过渡效果 */
+        .spring-bounce {
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        box-shadow 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .spring-bounce-img {
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                        filter 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                        opacity 0.6s ease-in-out;
+            will-change: auto; 
+        }
+
+        .group:hover .spring-bounce-img {
+            will-change: transform;
+        }
+
+        /* 自定义电脑端精致滚动条 */
+        html::-webkit-scrollbar, .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        html::-webkit-scrollbar-track, .custom-scrollbar::-webkit-scrollbar-track {
+            background: #000000;
+        }
+        html::-webkit-scrollbar-thumb, .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #110e25;
+            border-radius: 10px;
+            border: 2px solid #000000;
+        }
+        html::-webkit-scrollbar-thumb:hover, .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #51429a;
+        }
+        
+        /* 首屏文字入场微动效 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* 背景不规则深紫弥散纹理动画 */
+        @keyframes blobFloat1 {
+            0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+            33% { transform: translate(40px, -60px) scale(1.08) rotate(120deg); }
+            66% { transform: translate(-30px, 30px) scale(0.92) rotate(240deg); }
+            100% { transform: translate(0px, 0px) scale(1) rotate(360deg); }
+        }
+        @keyframes blobFloat2 {
+            0% { transform: translate(0px, 0px) scale(1) rotate(360deg); }
+            33% { transform: translate(-50px, 40px) scale(0.9) rotate(240deg); }
+            66% { transform: translate(40px, -30px) scale(1.1) rotate(120deg); }
+            100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+        }
+        .animate-blob-1 {
+            animation: blobFloat1 22s infinite ease-in-out;
+        }
+        .animate-blob-2 {
+            animation: blobFloat2 28s infinite ease-in-out;
+        }
+
+        /* 巨幅镂空大标题样式 */
+        #heroTitleSpan {
+            background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=2000&q=90');
+            background-size: 110% auto;
+            background-position: center;
+            background-clip: text;
+            -webkit-background-clip: text;
+            transition: background-size 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: brightness(0.9) contrast(1.3) saturate(1.5);
+        }
+        #heroTitle:hover #heroTitleSpan {
+            background-size: 125% auto;
+            filter: brightness(1.2) contrast(1.4);
+        }
+
+        /* =================================================== */
+        /* ✨ 物理阻尼微动与高兼容性循环入场动画 */
+        /* =================================================== */
+        .entry-anim-item {
+            opacity: 0;
+            transform: translateY(24px) scale(0.97);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                        transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+            will-change: transform, opacity;
+        }
+        .entry-anim-item.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* 标题弹性悬浮重构：弹性阻尼，严禁一切发光（过滤 .no-hover 从而使其保持静止） */
+        h1:not(.no-hover), h2:not(.no-hover), h3:not(.no-hover) {
+            display: inline-block;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+            will-change: transform;
+        }
+        h1:not(.no-hover):hover, h2:not(.no-hover):hover, h3:not(.no-hover):hover {
+            transform: scale(1.03) translateY(-3px) rotate(-0.5deg) !important;
+        }
+
+        /* 全局精致噪点肌理 overlay */
+        .noise-grain-texture {
+            position: fixed;
+            inset: 0;
+            z-index: 1; /* 正好置于基底颜色 and 文本流淌之间，不阻碍任何点击事件 */
+            pointer-events: none;
+            opacity: 0.025; /* 精准 2.5% 不透明度，保证在视网膜屏上优雅细腻 */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden relative">
+
+    <!-- 全局精致噪点肌理渲染层 -->
+    <div class="noise-grain-texture"></div>
+
+    <!-- 高性能鼠标专属拖尾 Canvas -->
+    <canvas id="cursorTrailCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-50"></canvas>
+
+    <!-- ========================================== -->
+    <!-- 0. 全局固定导航栏 (Header / Navigation Bar) -->
+    <!-- ========================================== -->
+    <header class="fixed top-0 left-0 w-full h-24 px-6 md:px-16 flex items-center justify-between z-50 pointer-events-auto bg-black/65 backdrop-blur-md border-b border-white/5">
+        <!-- Left Logo -->
+        <a href="#" class="text-xl font-black text-[#F1F9F4] tracking-widest font-syne hover:text-[#51429A] transition-colors uppercase">
+            Ke<span class="text-[#51429A]">.</span>HR
+        </a>
+        <!-- Middle Menu -->
+        <nav class="hidden md:flex items-center gap-10">
+            <a href="#hero" class="text-[10px] text-[#F1F9F4] uppercase tracking-[0.3em] font-medium transition-colors relative group py-1">
+                MAIN
+                <span class="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#51429A]"></span>
+            </a>
+            <a href="#about" class="text-[10px] text-white/50 hover:text-[#F1F9F4] uppercase tracking-[0.3em] font-medium transition-colors relative group py-1">
+                ABOUT ME
+                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-gradient-to-r from-[#312279] to-[#51429A] transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a href="#works" class="text-[10px] text-white/50 hover:text-[#F1F9F4] uppercase tracking-[0.3em] font-medium transition-colors relative group py-1">
+                PROJECT
+                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-gradient-to-r from-[#312279] to-[#51429A] transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a href="#lifestyle" class="text-[10px] text-white/50 hover:text-[#F1F9F4] uppercase tracking-[0.3em] font-medium transition-colors relative group py-1">
+                OTHER
+                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-gradient-to-r from-[#312279] to-[#51429A] transition-all duration-300 group-hover:w-full"></span>
+            </a>
+        </nav>
+        <!-- Right Premium Contact Button -->
+        <div class="flex items-center gap-4 sm:gap-6">
+            <a href="#contact" class="flex items-center gap-2 pl-4 pr-1.5 py-1.5 rounded-full bg-white text-black text-[10px] font-extrabold tracking-widest uppercase hover:bg-white/95 transition-all shadow-[0_10px_30px_rgba(255,255,255,0.15)] group">
+                Contact
+                <span class="w-6 h-6 rounded-full bg-[#1b1248] text-white flex items-center justify-center transform group-hover:rotate-12 transition-transform">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </span>
+            </a>
+        </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- 背景弥散纹理系统 (Diffuse Gradient Blobs) -->
+    <!-- ========================================== -->
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <!-- 弥散斑 A - 深紫色 -->
+        <div class="absolute top-[20%] left-[-10%] w-[500px] h-[500px] rounded-[40%_60%_70%_30%_/_40%_50%_60%_50%] bg-[#312279]/15 blur-[120px] animate-blob-1"></div>
+        <!-- 弥散斑 B - 浅紫色 -->
+        <div class="absolute top-[50%] right-[-10%] w-[600px] h-[600px] rounded-[60%_40%_30%_70%_/_60%_30%_70%_40%] bg-[#51429A]/12 blur-[140px] animate-blob-2"></div>
+        <!-- 弥散斑 C - 底部不规则斑 -->
+        <div class="absolute bottom-[10%] left-[20%] w-[450px] h-[450px] rounded-[50%_40%_60%_50%_/_40%_60%_50%_60%] bg-[#312279]/10 blur-[110px] animate-blob-1"></div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 1. 封面板块 (Hero Section) - 100% 物理左对齐响应式结构 -->
+    <!-- ========================================== -->
+    <section id="hero" class="relative h-screen w-full flex flex-col justify-between overflow-hidden bg-[#000000] select-none pt-24">
+        
+        <!-- Interactive Fluid Glow: HTML5 Canvas 动态粉紫流光 background -->
+        <canvas id="fluidGlowCanvas" class="absolute inset-0 w-full h-full z-0 pointer-events-none opacity-90"></canvas>
+
+        <!-- Noise Overlay + Grid Structure: 物理辅助格栅与胶片微粒结合层 -->
+        <div class="absolute inset-0 pointer-events-none z-10 pixel-grid-bg opacity-[0.4]"></div>
+        <div class="absolute inset-0 pointer-events-none z-10 opacity-[0.035] mix-blend-overlay">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                <filter id="noiseFilter">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" />
+                </filter>
+                <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+            </svg>
+        </div>
+
+        <!-- Background Minimalist Typography Embellishment (Matte Textures) -->
+        <div class="absolute left-10 top-1/4 font-mono text-[9px] text-white/5 uppercase tracking-[0.4em] select-none pointer-events-none hidden lg:block">
+            DESIGN DIRECTORY // SYSTEM VERSION: 2.42 // QZ
+        </div>
+        <div class="absolute right-10 bottom-36 font-mono text-[9px] text-white/5 uppercase tracking-[0.3em] select-none pointer-events-none hidden lg:block">
+            CREATIVE EXPLORATION CORE // LATENCY: 0.08ms
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 🔒 完美 PC 端靠左排版主视区（100% 对应 image_8d8b65.jpg 宽幅排版与 image_8d9e41.jpg 的字号缩减） -->
+        <!-- ========================================== -->
+        <div class="relative w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex-1 flex flex-col justify-center z-20">
+            
+            <div class="flex flex-col items-start text-left space-y-5 max-w-3xl">
+                <!-- Prelude Label -->
+                <span class="inline-block px-3 py-1 bg-[#51429A]/15 border border-[#51429A]/30 text-[#8c7ae6] text-[10px] font-mono tracking-[0.3em] uppercase rounded-full">
+                    KE HONGRUN'S DESIGN RESEARCH INSTITUTE
+                </span>
+                
+                <!-- Mega Typo (精心微调字号至最优雅高贵的黄金比例，完美向左靠齐) -->
+                <h1 class="font-syne font-black uppercase text-white flex flex-col items-start select-none">
+                    <span class="block text-4xl md:text-[3.8rem] leading-[0.85] tracking-tighter transition-transform duration-700 ease-out hover:scale-[1.03] hover:-translate-y-1 hover:-rotate-1 cursor-default">
+                        <span class="block">ke</span>
+                        <span class="block text-[#51429A]">hongrun</span>
+                    </span>
+                    <span class="block text-5xl md:text-[5.0rem] leading-[0.85] tracking-tighter transition-transform duration-700 ease-out hover:scale-[1.03] hover:translate-y-1 hover:rotate-1 mt-1 cursor-default text-[#F1F9F4] hover:text-[#8c7ae6]">
+                        Portfolio
+                    </span>
+                </h1>
+                
+                <!-- Sub-text -->
+                <p class="text-stone-400 text-xs md:text-xs tracking-[0.25em] max-w-md leading-relaxed">
+                    Welcome to my design portfolio! Let's embark on a wonderful design journey together!
+                </p>
+                
+                <!-- Consultation Button -->
+                <div class="pt-1">
+                    <a href="#about" class="inline-flex items-center px-8 py-3.5 bg-gradient-to-r from-[#312279] via-[#51429A] to-[#8c7ae6] text-white text-[11px] font-bold tracking-[0.25em] rounded-full uppercase transition-all duration-500 hover:scale-105 transform active:scale-95">
+                        LEARN ABOUT ME
+                    </a>
+                </div>
+
+                <!-- 💡 AIGC 与 UI/UX 精致层叠错落卡片面板（100% 还原 image_8d8b65.jpg 堆叠形态） -->
+                <div class="relative w-56 h-48 mt-4 select-none">
+                    <!-- AIGC 卡片（纯白高对比，逆时针倾斜，居于底层） -->
+                    <div class="absolute left-0 top-0 bg-white text-black p-4 rounded-[22px_6px_22px_6px] shadow-[0_25px_60px_rgba(0,0,0,0.5)] w-40 h-28 flex flex-col justify-between text-left transform -rotate-3 hover:rotate-0 transition-all duration-500 pointer-events-auto z-10">
+                        <div>
+                            <div class="text-xl font-black font-syne tracking-tight leading-none">AIGC</div>
+                            <div class="text-[8px] text-stone-500 font-bold uppercase tracking-wider mt-1.5 leading-tight font-mono">Adopt AIGC-assisted design</div>
+                        </div>
+                        <div class="flex justify-end">
+                            <span class="w-6 h-6 rounded-full bg-[#1b1248] text-white flex items-center justify-center hover:scale-110 transition-transform">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- UI/UX 卡片（暗色磨砂玻璃，顺时针倾斜，居于顶层） -->
+                    <div class="absolute left-10 top-4 bg-[#0c0c10]/40 backdrop-blur-md border border-white/10 text-white p-4 rounded-[6px_22px_6px_22px] shadow-[0_20px_50px_rgba(81,66,154,0.15)] w-40 h-28 flex flex-col justify-between text-left transform rotate-3 hover:rotate-0 transition-all duration-500 pointer-events-auto z-20">
+                        <div>
+                            <div class="text-xl font-black font-syne tracking-tight leading-none">UI/UX</div>
+                            <div class="text-[8px] text-stone-400 font-medium uppercase tracking-wider mt-1.5 leading-tight font-mono">Achieve a double harvest in user experience research and interface design.</div>
+                        </div>
+                        <div class="flex justify-end">
+                            <span class="w-6 h-6 rounded-full bg-[#8c7ae6] text-white flex items-center justify-center hover:scale-110 transition-transform">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 📐 底部页脚、INTRODUCTION、雷达控制面板安全版心对齐容器 -->
+        <!-- ========================================== -->
+        <div class="relative w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pb-6 z-20">
+            <!-- 完美的左右两端对齐排版 -->
+            <div class="flex flex-col sm:flex-row justify-between items-end gap-6 w-full select-none">
+                
+                <!-- A. 左下角“INTRODUCTION”字标（100% 对齐图片2） -->
+                <div class="space-y-4 max-w-md w-full">
+                    <h2 class="font-syne font-black text-4xl md:text-5xl uppercase tracking-tight leading-none text-white no-hover">
+                        <span class="text-white/10 text-xl md:text-2xl tracking-[0.1em] block mb-1">INTRODUCTION</span>
+                    </h2>
+                </div>
+
+                <!-- B. 右下角雷达控制面板（图 3，完美向左移动对齐版心右端） -->
+                <div class="hidden md:flex items-center gap-4 bg-[#0c0c10]/45 backdrop-blur-md border border-white/5 p-4 rounded-[16px_4px_16px_4px] hover:border-[#51429A]/50 transition-all duration-500 group">
+                    <!-- 闪烁旋转雷达 -->
+                    <div class="relative w-12 h-12 flex items-center justify-center shrink-0">
+                        <svg class="w-full h-full animate-[spin_8s_linear_infinite]" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(81, 66, 154, 0.15)" stroke-width="2" />
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="url(#radarGradient)" stroke-width="3" stroke-dasharray="80 180" />
+                            <defs>
+                                <linearGradient id="radarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#8c7ae6" />
+                                    <stop offset="100%" stop-color="transparent" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span class="absolute w-2 h-2 rounded-full bg-[#8c7ae6] animate-pulse"></span>
+                    </div>
+                    <!-- 雷达控制台技术指标文本 -->
+                    <div class="text-left font-mono">
+                        <div class="text-[9px] text-[#8c7ae6] font-bold tracking-widest uppercase flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-ping"></span>
+                            PORTFOLIO DESIGN
+                        </div>
+                        <div class="text-[8px] text-stone-400 mt-1 uppercase tracking-wider leading-none">
+                            DATE: 2026 // QZ<br>
+                            DESIGN IS THE LANGUAGE OF BEAUTY
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 页脚精美数据元文本（100% 透明，彻底清除屏幕截图 2026-06-28 014322.png 里的黑色渐变背景） -->
+            <div class="relative w-full py-4 mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-white/5 bg-transparent">
+                <!-- Left Contact metadata -->
+                <div class="flex flex-wrap gap-8 text-[9px] md:text-[10px] tracking-[0.25em] text-white/40 font-mono uppercase">
+                    <span>EMAIL: 3088344985@qq.com</span>
+                    <span class="hidden md:inline text-white/10">|</span>
+                    <span>WORKS COLLECTION OF KE HONGRUN 2026</span>
+                </div>
+                <!-- Right Language switch -->
+                <div class="flex items-center gap-3 text-[10px] tracking-[0.15em] font-mono">
+                    <span class="text-[#51429A] font-bold cursor-default">CN</span>
+                    <span class="text-white/20">/</span>
+                    <span class="text-white/40 hover:text-white transition-colors cursor-pointer">EN</span>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ========================================================================================= -->
+    <!-- 2. 关于我 / 个人简历 (About Me)                                                            -->
+    <!-- 🚨 终极安全锁死系统：完全抛弃栅格化宽度响应，改用 Flex 百分比硬分配物理结构，绝不塌缩单列！ 🚨 -->
+    <!-- ========================================================================================= -->
+    <section id="about" class="py-28 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto relative z-10">
+        <!-- 背景精致水印装饰文字 -->
+        <div class="absolute -left-12 top-1/4 -translate-y-1/2 text-[11rem] font-syne font-black text-white/[0.012] pointer-events-none select-none uppercase tracking-tighter hidden xl:block leading-none">
+            CREATIVE<br>EXPLORE
+        </div>
+
+        <!-- Section Header -->
+        <div class="mb-16 text-center lg:text-left relative">
+            <span class="font-syne text-[#51429A] font-semibold tracking-[0.3em] text-xs md:text-sm uppercase block mb-2">01 / PROFILE & EXPERIENCE</span>
+            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white font-syne uppercase">
+                CURRICULUM <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#51429A] to-[#8c7ae6]">VITAE</span>
+            </h2>
+            <div class="w-24 h-[2px] bg-gradient-to-r from-[#51429A] via-[#8c7ae6] to-transparent mt-4 mx-auto lg:mx-0"></div>
+            <!-- Decorative floating background label -->
+            <div class="absolute -top-10 -left-6 text-[7rem] font-bold text-white/[0.01] pointer-events-none select-none font-syne hidden lg:block">RESUME</div>
+        </div>
+
+        <!-- 🔒 硬锁左右结构（左边 58% 锁死经历，右边 38% 锁死信息与头像，在窄预览下也绝不折行坍塌成上下单列） -->
+        <div class="flex flex-row gap-6 md:gap-12 items-start justify-between w-full" style="perspective: 1200px;">
+            
+            <!-- 【左半部分（58% 宽度锁死，不可缩水 shrink-0）】：实习背景与项目经历 -->
+            <div class="w-[58%] shrink-0 space-y-8">
+                
+                <!-- 工作经历板块 -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <span class="w-3 h-3 rounded-full bg-[#51429A] animate-ping"></span>
+                        <h3 class="text-base md:text-lg font-bold tracking-widest text-[#F1F9F4] uppercase font-syne flex items-center gap-2">
+                            工作经历 / PROFESSIONAL EXPERIENCE 
+                            <span class="text-[9px] font-mono font-light text-white/30 tracking-normal">(HOVER ME)</span>
+                        </h3>
+                    </div>
+                    
+                    <!-- 工作经历卡片：支持果冻形变与重力悬停倾斜 -->
+                    <div class="group bg-gradient-to-b from-[#0c0c10] to-[#050508] border border-white/5 hover:border-[#51429A]/60 p-6 rounded-[24px_8px_24px_8px] hover:rounded-[12px_32px_12px_32px] transition-all duration-500 hover:-translate-y-2 transform-gpu relative overflow-hidden">
+                        <!-- 悬停时流淌的暗紫色科技网格背景 -->
+                        <div class="absolute inset-0 bg-[linear-gradient(rgba(81,66,154,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(81,66,154,0.03)_1px,transparent_1px)] bg-[size:16px_16px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                        <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#51429A]/40 to-transparent"></div>
+                        
+                        <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-2 mb-4 relative z-10">
+                            <div>
+                                <h4 class="text-sm md:text-base font-bold text-white tracking-wide group-hover:text-[#8c7ae6] transition-colors duration-300 flex items-center flex-wrap gap-1">
+                                    北京音娱时光科技有限公司 <span class="text-[10px] md:text-xs text-stone-400 font-normal">（实习）</span>
+                                </h4>
+                                <p class="text-[10px] text-[#51429A] tracking-wider uppercase font-semibold mt-1 flex items-center gap-1">
+                                    <span class="inline-block w-1.5 h-1.5 bg-[#51429A] rounded-full"></span>UX/UI Designer Intern
+                                </p>
+                            </div>
+                            <span class="text-[10px] md:text-xs text-[#8c7ae6] font-mono bg-[#51429a]/10 px-3 py-1 rounded-full border border-[#51429a]/20 shrink-0 self-start xl:self-auto group-hover:scale-105 transition-transform">2025.05 - 2025.08</span>
+                        </div>
+                        <ul class="space-y-2 text-stone-400 text-xs md:text-sm font-light leading-relaxed list-none pl-0 relative z-10">
+                            <li class="flex gap-2 transition-transform duration-300 group-hover:translate-x-1.5"><span class="text-[#51429A] select-none">•</span> <span>协同团队开展<strong>「热气球运营游戏」</strong>、<strong>「Poke商城音乐会主题装扮」</strong>等项目设计工作。</span></li>
+                            <li class="flex gap-2 transition-transform duration-300 group-hover:translate-x-1.5"><span class="text-[#51429A] select-none">•</span> <span>参与项目研讨会议，开展数据调研与信息考察，明确项目设计目标。</span></li>
+                            <li class="flex gap-2 transition-transform duration-300 group-hover:translate-x-1.5"><span class="text-[#51429A] select-none">•</span> <span>协同团队完成项目视觉迭代与方案敲定，对接开发人员协同推进项目落地。</span></li>
+                            <li class="flex gap-2 transition-transform duration-300 group-hover:translate-x-1.5"><span class="text-[#51429A] select-none">•</span> <span>基于用户 data 完成复盘分析，持续迭代优化产品呈现效果与用户体验。</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 项目经历板块 -->
+                <div class="space-y-6 pt-4">
+                    <div class="flex items-center gap-3">
+                        <span class="w-3 h-3 rounded-full bg-[#51429A] animate-ping"></span>
+                        <h3 class="text-base md:text-lg font-bold tracking-widest text-[#F1F9F4] uppercase font-syne">项目经历 / CREATIVE CASES</h3>
+                    </div>
+
+                    <!-- 项目卡片 1 -->
+                    <div class="group bg-gradient-to-b from-[#0c0c10] to-[#050508] border border-white/5 hover:border-[#51429A]/60 p-6 rounded-[8px_24px_8px_24px] hover:rounded-[32px_12px_32px_12px] transition-all duration-500 hover:-translate-y-2 transform-gpu relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[linear-gradient(rgba(81,66,154,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(81,66,154,0.03)_1px,transparent_1px)] bg-[size:16px_16px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                        <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#51429A]/40 to-transparent"></div>
+                        
+                        <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-2 mb-4 relative z-10">
+                            <div>
+                                <h4 class="text-sm md:text-base font-bold text-white tracking-wide group-hover:text-[#8c7ae6] transition-colors duration-300">星座说 APP 升级改版项目</h4>
+                                <p class="text-[10px] text-[#51429A] tracking-wider uppercase font-semibold mt-1 flex items-center gap-1">
+                                    <span class="inline-block w-1.5 h-1.5 bg-[#51429A] rounded-full"></span>Main UI/UX Designer
+                                </p>
+                            </div>
+                            <span class="text-[10px] md:text-xs text-[#8c7ae6] font-mono bg-[#51429a]/10 px-3 py-1 rounded-full border border-[#51429a]/20 shrink-0 self-start xl:self-auto group-hover:scale-105 transition-transform">2026.03 - 2026.05</span>
+                        </div>
+                        <ul class="space-y-2 text-stone-400 text-xs md:text-sm font-light leading-relaxed list-none pl-0 relative z-10">
+                            <li class="flex gap-2 transition-transform duration-300 group-hover:translate-x-1.5"><span class="text-[#51429A] select-none">•</span> <span>开展用户及 market 调研，梳理咨询业务链路画出低保真原型，协同团队制定适配场景设计策略。</span></li>
+                            <li class="flex gap-2 transition-transform duration-300 group-hover:translate-x-1.5"><span class="text-[#51429A] select-none">•</span> <span>搭建项目情绪板，主导核心页面设计，迭代多版高保真视觉方案并敲定落地版本.</span></li>
+                            <li class="flex gap-2 transition-transform duration-300 group-hover:translate-x-1.5"><span class="text-[#51429A] select-none">•</span> <span>优化塔罗业务链路、重构信息架构，搭建标准化组件库，建立统一产品视觉体系。</span></li>
+                            <li class="flex gap-2 transition-transform duration-300 group-hover:translate-x-1.5"><span class="text-[#51429A] select-none">•</span> <span>落地交互动效与运营视觉，依托用户 data复盘迭代，持续优化视觉呈现与用户体验。</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- 项目卡片 2 -->
+                    <div class="group bg-gradient-to-b from-[#0c0c10] to-[#050508] border border-white/5 hover:border-[#51429A]/60 p-6 rounded-[24px_8px_24px_8px] hover:rounded-[12px_32px_12px_32px] transition-all duration-500 hover:-translate-y-2 transform-gpu relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[linear-gradient(rgba(81,66,154,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(81,66,154,0.03)_1px,transparent_1px)] bg-[size:16px_16px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                        <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#51429A]/40 to-transparent"></div>
+                        
+                        <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-2 mb-4 relative z-10">
+                            <div>
+                                <h4 class="text-sm md:text-base font-bold text-white tracking-wide group-hover:text-[#8c7ae6] transition-colors duration-300">六人游 APP 视觉优化项目</h4>
+                                <p class="text-[10px] text-[#51429A] tracking-wider uppercase font-semibold mt-1 flex items-center gap-1">
+                                    <span class="inline-block w-1.5 h-1.5 bg-[#51429A] rounded-full"></span>Visual Design & Motion Lead
+                                </p>
+                            </div>
+                            <span class="text-[10px] md:text-xs text-[#8c7ae6] font-mono bg-[#51429a]/10 px-3 py-1 rounded-full border border-[#51429a]/20 shrink-0 self-start xl:self-auto group-hover:scale-105 transition-transform">2025.03 - 2025.04</span>
+                        </div>
+                        <ul class="space-y-2 text-stone-400 text-xs md:text-sm font-light leading-relaxed list-none pl-0 relative z-10">
+                            <li class="flex gap-2 transition-transform duration-300 group-hover:translate-x-1.5"><span class="text-[#51429A] select-none">•</span> <span>协同搭建 APP 情绪板并探索迭代视觉风格，联动团队确立标准化设计规范。</span></li>
+                            <li class="flex gap-2 transition-transform duration-300 group-hover:translate-x-1.5"><span class="text-[#51429A] select-none">•</span> <span>独立首页、详情等多类核心界面，精修视觉细节，设计输出 AE 交互动效内容。</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 【右半部分（38% 宽度锁死，不可缩水 shrink-0，支持 sticky 动态悬停定位）】：纯净大图与个人信息 -->
+            <div class="w-[38%] shrink-0 space-y-8 sticky top-28">
+                <!-- 纯净横向大图容器：利用 isolation-isolate 与继承圆角锁死边缘，呈现极致锐度 -->
+                <div class="relative group overflow-hidden bg-neutral-900/40 border border-white/5 p-2 rounded-[24px_12px_24px_12px] shadow-[0_0_40px_rgba(81,66,154,0.15)] hover:shadow-[0_0_50px_rgba(140,122,230,0.4)] transition-all duration-700">
+                    <!-- 背景环境网格层 -->
+                    <div class="absolute inset-[-50px] bg-[radial-gradient(#51429A_1px,transparent_1px)] bg-[size:20px_20px] opacity-10 group-hover:opacity-45 transition-opacity duration-700 pointer-events-none"></div>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-[#312279]/20 to-[#51429A]/30 opacity-50 group-hover:opacity-100 transition-opacity duration-700 -z-10 rounded-[24px_12px_24px_12px]"></div>
+                    
+                    <!-- 极简对角框线，保留设计张力 -->
+                    <div class="absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 border-[#8c7ae6] opacity-40 group-hover:opacity-100 group-hover:translate-x-1 group-hover:translate-y-1 transition-all"></div>
+                    <div class="absolute top-4 right-4 w-4 h-4 border-t-2 border-r-2 border-[#8c7ae6] opacity-40 group-hover:opacity-100 group-hover:-translate-x-1 group-hover:translate-y-1 transition-all"></div>
+                    <div class="absolute bottom-4 left-4 w-4 h-4 border-b-2 border-l-2 border-[#8c7ae6] opacity-40 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></div>
+                    <div class="absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 border-[#8c7ae6] opacity-40 group-hover:opacity-100 group-hover:-translate-x-1 group-hover:-translate-y-1 transition-all"></div>
+
+                    <!-- 1.618:1 黄金比例切幅，完全撑满、不留空白 -->
+                    <div class="aspect-[1.618/1] w-full overflow-hidden rounded-[18px_8px_18px_8px] relative bg-black z-10">
+                        <img src="https://i.postimg.cc/tRt37Z9k/jian-li.jpg" 
+                             alt="Ke Hongrun's Profile" 
+                             class="w-full h-full object-cover spring-bounce-img group-hover:scale-105 group-hover:rotate-1 transition-all duration-700"
+                             onerror="this.src='https://picsum.photos/800/500'">
+                    </div>
+                </div>
+
+                <!-- 个人基本信息卡片 - 采用趣味异形微动设计 -->
+                <div class="bg-gradient-to-b from-[#0c0c10] to-[#040407] border border-white/5 p-8 rounded-[12px_32px_12px_32px] hover:rounded-[32px_12px_32px_12px] relative overflow-hidden transition-all duration-500 hover:border-[#51429A]/50">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-[#51429A]/5 blur-3xl rounded-full pointer-events-none"></div>
+                    
+                    <!-- Profile Title -->
+                    <div class="border-b border-white/5 pb-4">
+                        <div class="flex flex-wrap items-center gap-3">
+                            <h3 class="text-2xl font-black text-white font-syne tracking-wider uppercase flex items-center gap-2">
+                                柯洪润
+                                <span class="text-xs font-mono font-light text-[#51429A] select-none">/ SYS APPROVED</span>
+                            </h3>
+                            <span class="px-2.5 py-0.5 text-[9px] font-mono font-bold tracking-widest text-[#F1F9F4] bg-[#51429A]/40 border border-[#51429A] rounded-md animate-bounce">211 院校</span>
+                        </div>
+                        <p class="text-stone-400 text-xs mt-1.5 tracking-widest font-light font-syne">UI/UX & MOTION DESIGNER</p>
+                    </div>
+
+                    <!-- 模块化基础信息卡盘 -->
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mt-6">
+                        <!-- 毕业学校 -->
+                        <div class="bg-white/[0.02] border border-white/5 hover:border-[#51429A]/50 p-3 rounded-[12px_4px_12px_4px] hover:rounded-[4px_12px_4px_12px] transition-all duration-300 hover:bg-[#312279]/10 group/cap">
+                            <span class="text-[9px] text-[#51429A] group-hover/cap:text-[#8c7ae6] font-semibold tracking-widest uppercase block mb-1">Graduated from</span>
+                            <span class="text-white text-xs font-bold font-syne block">福州大学</span>
+                            <span class="text-stone-400 text-[10px] block font-light mt-0.5">Fuzhou University</span>
+                        </div>
+
+                        <!-- 专业背景 -->
+                        <div class="bg-white/[0.02] border border-white/5 hover:border-[#51429A]/50 p-3 rounded-[4px_12px_4px_12px] hover:rounded-[12px_4px_12px_4px] transition-all duration-300 hover:bg-[#312279]/10 group/cap">
+                            <span class="text-[9px] text-[#51429A] group-hover/cap:text-[#8c7ae6] font-semibold tracking-widest uppercase block mb-1">Specialization</span>
+                            <span class="text-white text-xs font-bold font-syne block">产品设计</span>
+                            <span class="text-stone-400 text-[10px] block font-light mt-0.5">Product Design Major</span>
+                        </div>
+
+                        <!-- 电话热线 -->
+                        <div class="bg-white/[0.02] border border-white/5 hover:border-[#51429A]/50 p-3 rounded-[4px_12px_4px_12px] hover:rounded-[12px_4px_12px_4px] transition-all duration-300 hover:bg-[#312279]/10 group/cap">
+                            <span class="text-[9px] text-[#51429A] group-hover/cap:text-[#8c7ae6] font-semibold tracking-widest uppercase block mb-1">Contact Line</span>
+                            <span class="text-white text-xs font-bold font-mono block">198-5924-0070</span>
+                            <span class="text-stone-400 text-[10px] block font-light mt-0.5">Phone Call</span>
+                        </div>
+
+                        <!-- 邮箱地址 -->
+                        <div class="bg-white/[0.02] border border-white/5 hover:border-[#51429A]/50 p-3 rounded-[12px_4px_12px_4px] hover:rounded-[4px_12px_4px_12px] transition-all duration-300 hover:bg-[#312279]/10 group/cap">
+                            <span class="text-[9px] text-[#51429A] group-hover/cap:text-[#8c7ae6] font-semibold tracking-widest uppercase block mb-1">Digital Address</span>
+                            <span class="text-white text-[11px] font-bold font-mono break-all leading-none mt-1 block">3088344985@qq.com</span>
+                            <span class="text-stone-400 text-[10px] block font-light mt-1">QQ Email</span>
+                        </div>
+                    </div>
+
+                    <!-- 专业领域聚焦标签 -->
+                    <div class="border-t border-white/5 pt-5 mt-6">
+                        <span class="text-[10px] text-stone-500 font-semibold tracking-widest uppercase block mb-3">Expertise Focus</span>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-white/5 text-[#F1F9F4] text-[10px] font-medium rounded-full border border-white/5 hover:border-[#8c7ae6]/50 hover:bg-[#51429A]/20 transition-all hover:scale-105 duration-300">UI / UX</span>
+                            <span class="px-3 py-1 bg-white/5 text-[#F1F9F4] text-[10px] font-medium rounded-full border border-white/5 hover:border-[#8c7ae6]/50 hover:bg-[#51429A]/20 transition-all hover:scale-105 duration-300">交互设计</span>
+                            <span class="px-3 py-1 bg-white/5 text-[#F1F9F4] text-[10px] font-medium rounded-full border border-white/5 hover:border-[#8c7ae6]/50 hover:bg-[#51429A]/20 transition-all hover:scale-105 duration-300">AIGC 辅助</span>
+                            <span class="px-3 py-1 bg-white/5 text-[#F1F9F4] text-[10px] font-medium rounded-full border border-white/5 hover:border-[#8c7ae6]/50 hover:bg-[#51429A]/20 transition-all hover:scale-105 duration-300">AE 动效</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 3. 项目展示栏 (Portfolio Section) -->
+    <!-- ========================================== -->
+    <section id="works" class="py-16 bg-[#050505] relative z-10 overflow-hidden">
+        
+        <!-- 💡 核心升级：项目展示区专属紫色弥散流光画布 (颜色已调淡，不显厚重) -->
+        <canvas id="worksGlowCanvas" class="absolute inset-0 w-full h-full z-0 pointer-events-none opacity-50"></canvas>
+
+        <!-- ========================================== -->
+        <!-- 📐 升级：背景层雅致排版装饰 (Typographic & Aesthetic Floating Layers) -->
+        <!-- 对应 image_642a97.jpg 错落布局留出的空位，大小、透明度不一，完美平衡留白 -->
+        <!-- ========================================== -->
+        <div class="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+            <!-- 挂载带有括号细部的点缀标签 -->
+            <div class="absolute top-[68%] right-[12%] border border-white/5 bg-white/[0.01] px-5 py-2 rounded-lg font-mono text-[8px] text-white/10 uppercase tracking-[0.3em] hidden md:block">
+                [ SECTION_02 // SYSTEM_NOMINAL ]
+            </div>
+        </div>
+
+        <!-- Subtle Blueprint watermark grid decoration representing image_29193e.jpg empty gaps -->
+        <div class="absolute bottom-[2%] left-12 right-12 flex justify-between items-center text-[8px] font-mono text-white/5 uppercase tracking-[0.3em] select-none pointer-events-none">
+            <span>GRID_ALIGN_SEC.02 // METRIC_TEST_PENDING_0x242</span>
+            <span class="hidden md:inline">SYSTEM STATUS: NOMINAL // SCALE 1.0 // NO_DISTORTION_APPROVED</span>
+            <span>[ QZ_COORDS // CHRONO: 2026 ]</span>
+        </div>
+
+        <!-- 极淡的精美 tech 水印装饰文字 -->
+        <div class="absolute right-10 top-20 text-[10px] font-mono text-[#51429A]/20 tracking-[0.4em] uppercase writing-mode-vertical select-none pointer-events-none hidden lg:block">
+            SYS.REF // 2026 // GRID ALIGNED
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 md:px-12 lg:px-24 pb-6 pt-4 relative z-10">
+            <!-- 将原本水平的 Image 1 排版，彻底改为 Image 2 的上下居中、带透明字标装饰的高端排版 -->
+            <div class="mb-20 text-center relative">
+                <span class="font-syne text-[#51429A] font-semibold tracking-[0.3em] text-xs md:text-sm uppercase block mb-2">02 / Selected Works</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white font-syne uppercase">
+                    SPECIFIC <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#51429A] to-[#8c7ae6]">PROJECT</span>
+                </h2>
+                <div class="w-24 h-[2px] bg-gradient-to-r from-[#51429A] via-[#8c7ae6] to-transparent mt-4 mx-auto"></div>
+                <p class="text-stone-400 text-xs mt-3 tracking-widest">点击展开项目详情，沉浸式浏览全案设计内容</p>
+                <!-- Decorative floating background label -->
+                <div class="absolute -top-10 left-1/2 -translate-x-1/2 text-[7rem] font-bold text-white/[0.01] pointer-events-none select-none font-syne hidden lg:block">PORTFOLIO</div>
+            </div>
+
+            <!-- 强制一排 4 列 💡 配合缩短空白，将底边距 pb-16 调整为 pb-6 -->
+            <div class="grid grid-cols-4 gap-2 sm:gap-4 md:gap-6 lg:gap-8 items-start relative pb-6">
+                
+                <!-- 【项目一】 -->
+                <div class="group relative overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.9)] spring-bounce cursor-pointer aspect-square bg-[#0c0c10] border border-white/5 translate-y-0 hover:-translate-y-4 irregular-corners-1"
+                     onclick="openProjectModal('project1')">
+                    
+                    <div class="absolute top-2 left-2 sm:top-4 sm:left-4 z-20 font-syne text-[8px] sm:text-xs text-white/30 group-hover:text-[#51429A]/80 transition-colors font-black tracking-widest">01</div>
+                    <img src="https://i.postimg.cc/1tvmvY8f/4-2.png" 
+                         alt="Project 1 Cover" 
+                         class="absolute inset-0 w-full h-full object-cover spring-bounce-img scale-100 group-hover:scale-105 brightness-[0.95] group-hover:brightness-[1.05]"
+                         onerror="this.src='https://picsum.photos/600/800'">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-[#312279]/15 opacity-95 group-hover:opacity-90 transition-all duration-500"></div>
+
+                    <div class="absolute inset-0 p-2 sm:p-4 md:p-6 flex flex-col justify-end z-10">
+                        <div class="flex justify-end mb-2 sm:mb-3">
+                            <span class="inline-flex items-center px-2 py-0.5 sm:px-4 sm:py-1.5 rounded-full bg-gradient-to-r from-[#312279]/30 to-[#51429A]/30 border border-[#51429A]/50 text-[#F1F9F4] text-[8px] sm:text-xs font-semibold tracking-wide opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 backdrop-blur-md">
+                                View
+                                <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 ml-1 text-[#51429A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <h3 class="text-[9px] sm:text-sm md:text-base font-bold text-[#F1F9F4] tracking-wide transition-colors duration-300 group-hover:text-[#51429A] line-clamp-2 leading-tight">
+                            星座说用户体验升级
+                        </h3>
+                        <p class="text-stone-400 text-[6px] sm:text-[9px] mt-0.5 sm:mt-1 font-light tracking-widest uppercase">
+                            UI / UX
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 【项目二】 -->
+                <div class="group relative overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.9)] spring-bounce cursor-pointer aspect-square bg-[#0c0c10] border border-white/5 translate-y-10 sm:translate-y-16 md:translate-y-24 hover:translate-y-6 sm:hover:translate-y-12 md:hover:translate-y-20 irregular-corners-2"
+                     onclick="openProjectModal('project2')">
+                    
+                    <div class="absolute top-2 right-2 sm:top-4 sm:right-4 z-20 font-syne text-[8px] sm:text-xs text-white/30 group-hover:text-[#51429A]/80 transition-colors font-black tracking-widest">02</div>
+                    <img src="https://i.postimg.cc/VvS8DsyR/24-2.png" 
+                         alt="Project 2 Cover" 
+                         class="absolute inset-0 w-full h-full object-cover spring-bounce-img scale-100 group-hover:scale-105 brightness-[0.95] group-hover:brightness-[1.05]"
+                         onerror="this.src='https://picsum.photos/600/800'">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-[#312279]/15 opacity-95 group-hover:opacity-90 transition-all duration-500"></div>
+
+                    <div class="absolute inset-0 p-2 sm:p-4 md:p-6 flex flex-col justify-end z-10">
+                        <div class="flex justify-end mb-2 sm:mb-3">
+                            <span class="inline-flex items-center px-2 py-0.5 sm:px-4 sm:py-1.5 rounded-full bg-gradient-to-r from-[#312279]/30 to-[#51429A]/30 border border-[#51429A]/50 text-[#F1F9F4] text-[8px] sm:text-xs font-semibold tracking-wide opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 backdrop-blur-md">
+                                View
+                                <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 ml-1 text-[#51429A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <h3 class="text-[9px] sm:text-sm md:text-base font-bold text-[#F1F9F4] tracking-wide transition-colors duration-300 group-hover:text-[#51429A] line-clamp-2 leading-tight">
+                            Poke4.2.42热气球游戏
+                        </h3>
+                        <p class="text-stone-400 text-[6px] sm:text-[9px] mt-0.5 sm:mt-1 font-light tracking-widest uppercase">
+                            游戏 / UI
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 【项目三】 -->
+                <div class="group relative overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.9)] spring-bounce cursor-pointer aspect-square bg-[#0c0c10] border border-white/5 translate-y-0 hover:-translate-y-4 irregular-corners-1"
+                     onclick="openProjectModal('project3')">
+                    
+                    <div class="absolute top-2 left-2 sm:top-4 sm:left-4 z-20 font-syne text-[8px] sm:text-xs text-white/30 group-hover:text-[#51429A]/80 transition-colors font-black tracking-widest">03</div>
+                    <img src="https://i.postimg.cc/g0Yb1H9Q/31-2.png" 
+                         alt="Project 3 Cover" 
+                         class="absolute inset-0 w-full h-full object-cover spring-bounce-img scale-100 group-hover:scale-105 brightness-[0.95] group-hover:brightness-[1.05]"
+                         onerror="this.src='https://picsum.photos/600/800'">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-[#312279]/15 opacity-95 group-hover:opacity-90 transition-all duration-500"></div>
+
+                    <div class="absolute inset-0 p-2 sm:p-4 md:p-6 flex flex-col justify-end z-10">
+                        <div class="flex justify-end mb-2 sm:mb-3">
+                            <span class="inline-flex items-center px-2 py-0.5 sm:px-4 sm:py-1.5 rounded-full bg-gradient-to-r from-[#312279]/30 to-[#51429A]/30 border border-[#51429A]/50 text-[#F1F9F4] text-[8px] sm:text-xs font-semibold tracking-wide opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 backdrop-blur-md">
+                                View
+                                <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 ml-1 text-[#51429A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <h3 class="text-[9px] sm:text-sm md:text-base font-bold text-[#F1F9F4] tracking-wide transition-colors duration-300 group-hover:text-[#51429A] line-clamp-2 leading-tight">
+                            Poke「友谊音乐会」商城主题装扮
+                        </h3>
+                        <p class="text-stone-400 text-[6px] sm:text-[9px] mt-0.5 sm:mt-1 font-light tracking-widest uppercase">
+                            视觉 / AIGC
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 【项目四】 -->
+                <div class="group relative overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.9)] spring-bounce cursor-pointer aspect-square bg-[#0c0c10] border border-white/5 translate-y-10 sm:translate-y-16 md:translate-y-24 hover:translate-y-6 sm:hover:translate-y-12 md:hover:translate-y-20 irregular-corners-2"
+                     onclick="openProjectModal('project4')">
+                    
+                    <div class="absolute top-2 right-2 sm:top-4 sm:right-4 z-20 font-syne text-[8px] sm:text-xs text-white/30 group-hover:text-[#51429A]/80 transition-colors font-black tracking-widest">04</div>
+                    <img src="https://i.postimg.cc/5tjnHX88/33.png" 
+                         alt="Project 4 Cover" 
+                         class="absolute inset-0 w-full h-full object-cover spring-bounce-img scale-100 group-hover:scale-105 brightness-[0.95] group-hover:brightness-[1.05]"
+                         onerror="this.src='https://picsum.photos/600/800'">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-[#312279]/15 opacity-95 group-hover:opacity-90 transition-all duration-500"></div>
+
+                    <div class="absolute inset-0 p-2 sm:p-4 md:p-6 flex flex-col justify-end z-10">
+                        <div class="flex justify-end mb-2 sm:mb-3">
+                            <span class="inline-flex items-center px-2 py-0.5 sm:px-4 sm:py-1.5 rounded-full bg-gradient-to-r from-[#312279]/30 to-[#51429A]/30 border border-[#51429A]/50 text-[#F1F9F4] text-[8px] sm:text-xs font-semibold tracking-wide opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 backdrop-blur-md">
+                                View
+                                <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 ml-1 text-[#51429A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <h3 class="text-[9px] sm:text-sm md:text-base font-bold text-[#F1F9F4] tracking-wide transition-colors duration-300 group-hover:text-[#51429A] line-clamp-2 leading-tight">
+                            星烛守护计划运营活动
+                        </h3>
+                        <p class="text-stone-400 text-[6px] sm:text-[9px] mt-0.5 sm:mt-1 font-light tracking-widest uppercase">
+                            运营 / AIGC
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 3.1 项目长图弹窗模态框 (Project Modal) - 高清大屏 & 100% 免疫 Chrome 沙箱屏蔽 & 防文字遮挡 -->
+    <!-- ========================================== -->
+    <div id="projectModal" 
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/90 backdrop-blur-lg hidden transition-all duration-300 opacity-0"
+         onclick="closeModalOnOutsideClick(event)">
+        
+        <!-- 💡 终极扩展：将最大宽度扩增至屏幕的 95%，高度扩增至 92vh 视觉视区，PDF 文档渲染尺寸随之同比例完美等比放大，绝不裁剪 -->
+        <div id="modalBox" 
+             class="relative bg-[#08080a] border border-[#312279]/30 rounded-[30px_10px_30px_10px] max-w-[95%] xl:max-w-[92%] w-full max-h-[96vh] h-[90vh] md:h-[92vh] flex flex-col shadow-[0_0_60px_rgba(81, 66, 154, 0.35)] overflow-hidden transform scale-95 transition-transform duration-300">
+            
+            <div class="flex items-center justify-between px-6 py-5 border-b border-white/5 bg-[#08080a] z-10 shrink-0">
+                <div>
+                    <h4 id="modalTitle" class="text-xl font-bold text-[#F1F9F4] tracking-wide">项目详情</h4>
+                    <p id="modalCategory" class="text-xs text-[#51429A] tracking-widest mt-1 uppercase font-semibold">CATEGORY</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <!-- 新增：在新标签页中打开 PDF 的高兼容外部跳转按钮（100% 解决 iframe 拦截阻断） -->
+                    <a id="modalOpenExternal" href="#" target="_blank" 
+                       class="p-2.5 rounded-full hover:bg-white/5 text-stone-400 hover:text-[#51429A] transition-colors focus:outline-none flex items-center justify-center"
+                       title="在新标签页中打开原始 PDF 方案">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                    </a>
+                    <button onclick="closeProjectModal()" 
+                            class="p-2.5 rounded-full hover:bg-white/5 text-stone-400 hover:text-[#51429A] transition-colors focus:outline-none"
+                            aria-label="Close modal">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 将内边距调整为 p-0 且完全溢出隐藏，保证 PDF 能像素级贴合在模态框的边缘，旁边不留任何空隙 -->
+            <div id="modalScrollArea" class="flex-1 overflow-hidden p-0 bg-black relative flex flex-col">
+                
+                <!-- 加载动画：绝对定位覆盖 -->
+                <div id="iframeLoading" class="absolute inset-0 flex flex-col items-center justify-center text-stone-400 font-mono text-xs gap-4 bg-black z-20">
+                    <div class="w-8 h-8 rounded-full border-2 border-[#51429A] border-t-transparent animate-spin"></div>
+                    <span class="tracking-widest animate-pulse">正在载入高清 PDF 方案，请稍候...</span>
+                </div>
+
+                <!-- 容器设为 w-full h-full flex-1，用于完美承接 absolute inset-0 铺满的高清 iframe -->
+                <div id="modalImageContainer" class="w-full h-full flex-1 relative bg-black">
+                    <!-- PDF iframe 将会通过 JavaScript 动态在此加载 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 4. 艺术角 / 兴趣与作品展示 (Art Corner) -->
+    <!-- ========================================== -->
+    <section id="lifestyle" class="py-28 max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
+        <!-- 极淡的生活/艺术背景字标点缀（Matte Textures） -->
+        <div class="absolute -left-16 bottom-10 text-[11rem] font-syne font-black text-white/[0.012] pointer-events-none select-none uppercase tracking-tighter hidden xl:block leading-none">
+            LIFESTYLE
+        </div>
+        <!-- 极精细的准星十字坐标线背景装饰 -->
+        <div class="absolute left-10 top-1/3 w-32 h-32 opacity-15 pointer-events-none hidden lg:block">
+            <svg viewBox="0 0 100 100" class="w-full h-full stroke-white/20 fill-none" stroke-width="0.5">
+                <circle cx="50" cy="50" r="40" stroke-dasharray="2 4" />
+                <line x1="50" y1="0" x2="50" y2="100" />
+                <line x1="0" y1="50" x2="100" y2="50" />
+            </svg>
+        </div>
+
+        <!-- 大标题区 -->
+        <div class="mb-20 text-center relative">
+            <span class="font-syne text-[#51429A] font-semibold tracking-[0.3em] text-xs md:text-sm uppercase block mb-2">03 / Art & Lifestyle</span>
+            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mt-2 font-syne uppercase">
+                CREATIVE & <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#51429A] to-[#8c7ae6]">DAILY INSIGHTS</span>
+            </h2>
+            <div class="w-24 h-[2px] bg-gradient-to-r from-[#51429A] via-[#8c7ae6] to-transparent mt-4 mx-auto"></div>
+            <p class="text-stone-400 text-sm mt-3 max-w-lg mx-auto font-light">设计之外，墨书修心，队列砺行，常以运动充盈日常</p>
+        </div>
+
+        <!-- ==================== A. 兴趣爱好模块 ==================== -->
+        <div class="mb-24">
+            <h3 class="text-lg font-bold text-[#F1F9F4] tracking-wider border-l-4 border-[#51429A] pl-3 mb-8 uppercase font-syne">
+                01 / INSPIRATION RITUALS
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- 兴趣卡片1 -->
+                <div class="group relative overflow-hidden bg-[#08080a]/80 border border-white/5 shadow-sm hover:border-[#51429A]/50 hover:-translate-y-2 transition-all duration-500 p-8 min-h-[240px] flex flex-col justify-end"
+                     style="border-radius: 40px 12px 40px 12px;">
+                    <!-- 背景图片 -->
+                    <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 transform scale-110 blur-[3px] group-hover:blur-none group-hover:scale-100 z-0" 
+                         style="background-image: url('https://i.postimg.cc/NjhHQmVt/mao-bi.jpg');"></div>
+                    <!-- 底部渐变半透明遮罩 -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10 transition-all duration-500 group-hover:via-black/30"></div>
+                    
+                    <!-- 卡片内容 -->
+                    <div class="relative z-20">
+                        <h4 class="text-lg font-bold text-[#F1F9F4] mb-3">写毛笔·记录每次的进步</h4>
+                        <p class="text-stone-200 text-sm font-light leading-relaxed">
+                            朝夕挥毫浸墨，静心打磨笔意，每一次落笔皆是看得见的成长
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 兴趣卡片2 -->
+                <div class="group relative overflow-hidden bg-[#08080a]/80 border border-white/5 shadow-sm hover:border-[#51429A]/50 hover:-translate-y-2 transition-all duration-500 p-8 min-h-[240px] flex flex-col justify-end"
+                     style="border-radius: 12px 40px 12px 40px;">
+                    <!-- 背景图片 -->
+                    <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 transform scale-110 blur-[3px] group-hover:blur-none group-hover:scale-100 z-0" 
+                         style="background-image: url('https://i.postimg.cc/VvpbrCkY/bao-shi.jpg');"></div>
+                    <!-- 底部渐变半透明遮罩 -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10 transition-all duration-500 group-hover:via-black/30"></div>
+                    
+                    <!-- 卡片内容 -->
+                    <div class="relative z-20">
+                        <h4 class="text-lg font-bold text-[#F1F9F4] mb-3">去抱石·喜欢不同的新挑战</h4>
+                        <p class="text-stone-200 text-sm font-light leading-relaxed">
+                            踏石寻新境，不惧各类未知挑战，愿在一次次尝试里突破自我，丰盈内心
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 兴趣卡片3 -->
+                <div class="group relative overflow-hidden bg-[#08080a]/80 border border-white/5 shadow-sm hover:border-[#51429A]/50 hover:-translate-y-2 transition-all duration-500 p-8 min-h-[240px] flex flex-col justify-end"
+                     style="border-radius: 40px 12px 40px 12px;">
+                    <!-- 背景图片 -->
+                    <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 transform scale-110 blur-[3px] group-hover:blur-none group-hover:scale-100 z-0" 
+                         style="background-image: url('https://i.postimg.cc/3wY0v735/guo-qi.jpg');"></div>
+                    <!-- 底部渐变半透明遮罩 -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10 transition-all duration-500 group-hover:via-black/30"></div>
+                    
+                    <!-- 卡片内容 -->
+                    <div class="relative z-20">
+                        <h4 class="text-lg font-bold text-[#F1F9F4] mb-3">升国旗·每次清晨的训练</h4>
+                        <p class="text-stone-200 text-sm font-light leading-relaxed">
+                            每至清晨便列队训练，晨光落在肩头，长久伫立的坚守，皆是对国旗赤诚的敬意
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== B. 绘画作品模块 ==================== -->
+        <!-- 💡 对应 image_643d40.jpg / image_7f043c.png 的精致艺术浮雕背景 -->
+        <div class="mb-24 relative">
+            
+            <div class="absolute inset-0 z-0 pointer-events-none select-none">
+                <!-- 刻度规范网格和十字星 -->
+                <div class="absolute right-[22%] top-[30%] w-10 h-10 opacity-30">
+                    <svg viewBox="0 0 100 100" class="w-full h-full stroke-[#51429A]" stroke-width="1.5" fill="none">
+                        <line x1="50" y1="20" x2="50" y2="80" />
+                        <line x1="20" y1="50" x2="80" y2="50" />
+                        <circle cx="50" cy="50" r="10" />
+                    </svg>
+                </div>
+                
+                <!-- 精致微动排版 A (较大透明度低) -->
+                <div class="absolute right-[23%] top-[45%] font-mono text-[10px] text-white/10 tracking-[0.25em] leading-relaxed uppercase">
+                    <span class="text-[#51429A]/40 font-bold block text-[11px] mb-1">ANALOG ART_DEPT</span>
+                    <span>MEDIUM: RAW GRAPHITE PENCIL</span><br>
+                    <span>BASE CANVAS: ACID-FREE 220G/M²</span>
+                </div>
+
+                <!-- 细微物理对齐标签 C -->
+                <div class="absolute left-[38%] top-[12%] font-mono text-[7px] text-[#51429A]/20 tracking-[0.4em] uppercase border border-[#51429A]/10 px-3 py-1 rounded">
+                    [ PHYSICAL_STRETCHER_SPEC_0x42 ]
+                </div>
+
+                <!-- 精致微动排版 B (超细透明度极低，完美呼应 image_7f043c.png) -->
+                <div class="absolute right-[3%] bottom-[12%] text-right font-mono leading-tight hidden md:block">
+                    <span class="text-white/5 text-[3.5rem] font-bold block tracking-tighter leading-none mb-1">STIPPLING</span>
+                    <span class="text-[#8c7ae6]/15 text-[9px] tracking-[0.3em] uppercase block">DENSITY_SPEC: 98.42%_DPI</span>
+                    <span class="text-[#51429A]/10 text-[8px] tracking-[0.1em] block">RENDER_PASS: NOMINAL_ACCURACY</span>
+                </div>
+            </div>
+            
+            <h3 class="text-lg font-bold text-[#F1F9F4] tracking-wider border-l-4 border-[#51429A] pl-3 mb-8 uppercase font-syne relative z-10">
+                02 / SELECTIVE PAINTINGS
+            </h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 items-start relative z-10">
+                
+                <!-- 【绘画1】 -->
+                <div class="group relative overflow-hidden bg-neutral-900/30 border border-white/5 sm:col-span-2 md:col-span-2 shadow-md hover:border-[#51429A]/40 spring-bounce cursor-pointer translate-y-0 hover:-translate-y-3 hover:scale-[1.015] animate-pulse"
+                     style="border-radius: 40px 12px 40px 12px;">
+                    <img src="https://i.postimg.cc/85hbr9zD/1men-kou.jpg" 
+                         alt="《镇瑞衔环》" 
+                         class="w-full h-auto block spring-bounce-img group-hover:scale-102 opacity-0"
+                         onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('animate-pulse')"
+                         onerror="handleImageError(this, 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=2000&q=90')">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8 pointer-events-none">
+                        <h4 class="text-white font-bold text-lg tracking-wide">《镇瑞衔环》</h4>
+                        <p class="text-[#51429A] text-xs mt-1.5 font-extrabold font-mono">精微素描 · 2024.09</p>
+                    </div>
+                </div>
+
+                <!-- 【绘画2】 -->
+                <div class="group relative overflow-hidden bg-neutral-900/30 border border-white/5 shadow-md hover:border-[#51429A]/40 spring-bounce cursor-pointer translate-y-0 hover:-translate-y-3 hover:scale-[1.02] sm:col-span-1 md:col-span-1 animate-pulse"
+                     style="border-radius: 12px 40px 12px 40px;">
+                    <img src="https://i.postimg.cc/G3xQLWfX/2shi-shi.jpg" 
+                         alt="《青狮镇庭》" 
+                         class="w-full h-auto block spring-bounce-img group-hover:scale-102 opacity-0"
+                         onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('animate-pulse')"
+                         onerror="handleImageError(this, 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=2000&q=90')">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
+                        <h4 class="text-white font-bold text-base">《青狮镇庭》</h4>
+                        <p class="text-[#51429A] text-xs mt-1 font-extrabold font-mono">精微素描 · 2025.03</p>
+                    </div>
+                </div>
+
+                <!-- 【绘画3】 -->
+                <div class="group relative overflow-hidden bg-neutral-900/30 border border-white/5 shadow-md hover:border-[#51429A]/40 spring-bounce cursor-pointer translate-y-0 hover:-translate-y-3 hover:scale-[1.02] w-full max-w-[85%] mx-auto sm:col-span-1 md:col-span-1 animate-pulse"
+                     style="border-radius: 40px 12px 40px 12px;">
+                    <img src="https://i.postimg.cc/zXdFWn8C/3wu-lin.png" 
+                         alt="《梧林印象》" 
+                         class="w-full h-auto block spring-bounce-img group-hover:scale-102 opacity-0"
+                         onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('animate-pulse')"
+                         onerror="handleImageError(this, 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=2000&q=90')">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
+                        <h4 class="text-white font-bold text-sm">《梧林印象》</h4>
+                        <p class="text-[#51429A] text-[10px] mt-0.5 font-extrabold font-mono">拍立得框设计 · 2026.02</p>
+                    </div>
+                </div>
+
+                <!-- 【绘画5】 -->
+                <div class="group relative overflow-hidden bg-neutral-900/30 border border-white/5 shadow-md hover:border-[#51429A]/40 spring-bounce cursor-pointer translate-y-0 hover:-translate-y-3 hover:scale-[1.02] animate-pulse"
+                     style="border-radius: 40px 12px 40px 12px;">
+                    <img src="https://i.postimg.cc/Dyzq28LZ/5shui-cai.jpg" 
+                         alt="《水彩诗篇》" 
+                         class="w-full h-auto block spring-bounce-img group-hover:scale-102 opacity-0"
+                         onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('animate-pulse')"
+                         onerror="handleImageError(this, 'https://images.unsplash.com/photo-1501472312651-726afd116ff1?auto=format&fit=crop&w=2000&q=90')">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
+                        <h4 class="text-white font-bold text-base">《水彩诗篇》</h4>
+                        <p class="text-[#51429A] text-xs mt-1 font-extrabold font-mono">旅行写生水彩随笔 · 2024.07</p>
+                    </div>
+                </div>
+
+                <!-- 【绘画6】 -->
+                <div class="group relative overflow-hidden bg-neutral-900/30 border border-white/5 shadow-md hover:border-[#51429A]/40 spring-bounce cursor-pointer translate-y-0 hover:-translate-y-3 hover:scale-[1.02] sm:col-span-1 md:col-span-1 animate-pulse"
+                     style="border-radius: 12px 40px 12px 40px;">
+                    <img src="https://i.postimg.cc/0QdpNSVz/4dian-cai.jpg" 
+                         alt="《点彩晨光》" 
+                         class="w-full h-auto block spring-bounce-img group-hover:scale-102 opacity-0"
+                         onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('animate-pulse')"
+                         onerror="handleImageError(this, 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=2000&q=90')">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
+                        <h4 class="text-white font-bold text-base">《点彩晨光》</h4>
+                        <p class="text-[#51429A] text-xs mt-1 font-extrabold font-mono">水粉点彩 · 2023.12</p>
+                    </div>
+                </div>
+
+                <!-- 【绘画4】 -->
+                <div class="group relative overflow-hidden bg-neutral-900/30 border border-white/5 shadow-md hover:border-[#51429A]/40 spring-bounce cursor-pointer translate-y-0 hover:-translate-y-3 hover:scale-[1.02] sm:col-span-1 md:col-span-1 animate-pulse"
+                     style="border-radius: 12px 40px 12px 40px;">
+                    <img src="https://i.postimg.cc/pTZFvHdF/6dan-jia.png" 
+                         alt="《模块化变形急救担架轮椅设计》" 
+                         class="w-full h-auto block spring-bounce-img group-hover:scale-102 opacity-0"
+                         onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('animate-pulse')"
+                         onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=2000&q=90'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
+                        <h4 class="text-white font-bold text-base">《模块化变形急救担架轮椅设计》</h4>
+                        <p class="text-[#51429A] text-xs mt-1 font-extrabold font-mono">产品建模 · 2025.08</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== C. 生活照片模块 ==================== -->
+        <!-- 💡 对应 image_643d77.jpg / image_7f073d.png 的高质感印刷背景排版 -->
+        <div class="relative">
+            
+            <!-- ==================================================================== -->
+            <!-- 📷 在多维照片组产生的暗色空位中，融入有趣的胶片技术编排背景，并完美复制“STIPPLING”排版 -->
+            <!-- ==================================================================== -->
+            <div class="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+                <!-- 胶片规格技术刻度戳 (不同透明度、大小) 💡 再次向下微移至 top-[38%]，精确对齐 image_99d640.png 的遮挡美学 -->
+                <div class="absolute right-[24%] top-[38%] text-right font-mono hidden md:block">
+                    <span class="text-[#51429A]/30 text-[10px] tracking-[0.3em] font-bold block mb-1">MOMENT SPECIFICATIONS</span>
+                    <span class="text-white/10 text-[14px] font-bold block uppercase leading-none">50mm F1.2 PRIME // EXPOSURE: AUTO</span>
+                    <span class="text-stone-600 text-[8px] tracking-[0.2em] uppercase block mt-1">ISO_SPEC // HIGH_DR_NOMINAL</span>
+                </div>
+
+                <!-- 微弱层叠网格刻度 (对齐图像边缘的暗夜质感) -->
+                <div class="absolute right-[32%] top-[40%] border-l border-b border-[#51429A]/10 w-28 h-20 pl-2 pt-1 font-mono text-[7px] text-white/5 uppercase tracking-widest hidden xl:block">
+                    [ GRID_ALIGN_LOC: 24.52 ]<br>
+                    TIME: SHUTTER_1/250S<br>
+                    LENS: MULTI_COATED
+                </div>
+
+                <!-- 极度微弱的胶卷刻度底纹，增添玩味感 -->
+                <div class="absolute left-[38%] bottom-[12%] flex items-center gap-1.5 font-mono text-[8px] text-white/5 select-none tracking-[0.35em] uppercase hidden lg:flex">
+                    <span class="w-1.5 h-1.5 rounded-full bg-red-500/20"></span>
+                    MOMENT CHRONO RECORD // QZ_2026 // NOMINAL APPROVED
+                </div>
+
+                <!-- 💡 完美复制自图片1 (image_7f043c.png) 风格的 “STIPPLING” 英文水印排版，完美填充 image_7f073d.png 中右侧巨大黑空区 -->
+                <div class="absolute right-[3%] bottom-[12%] text-right font-mono leading-tight hidden md:block">
+                    <span class="text-white/5 text-[3.5rem] font-bold block tracking-tighter leading-none mb-1">STIPPLING</span>
+                    <span class="text-[#8c7ae6]/15 text-[9px] tracking-[0.3em] uppercase block">DENSITY_SPEC: 98.42%_DPI</span>
+                    <span class="text-[#51429A]/10 text-[8px] tracking-[0.1em] block">RENDER_PASS: NOMINAL_ACCURACY</span>
+                </div>
+            </div>
+
+            <h3 class="text-lg font-bold text-[#F1F9F4] tracking-wider border-l-4 border-[#51429A] pl-3 mb-8 uppercase font-syne relative z-10">
+                03 / MOMENTS & MEMORIES
+            </h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 pt-4 items-start relative z-10">
+                
+                <!-- 照片1 -->
+                <div class="group relative overflow-hidden bg-neutral-900/30 border border-white/5 shadow-sm hover:border-[#51429A]/40 spring-bounce cursor-pointer translate-y-0 hover:-translate-y-3 hover:scale-[1.015] animate-pulse"
+                     style="border-radius: 40px 12px 40px 12px;">
+                    <img src="https://i.postimg.cc/jdsmhQNw/xiao-lu.jpg" 
+                         alt="和小鹿的第一张合影" 
+                         class="w-full h-auto block spring-bounce-img group-hover:scale-102 opacity-0"
+                         onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('animate-pulse')"
+                         onerror="handleImageError(this, 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=2000&q=90')">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8 pointer-events-none">
+                        <p class="text-[#51429A] font-syne text-sm italic font-semibold">
+                            # 和和小鹿的第一张合影
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 照片2 -->
+                <div class="group relative overflow-hidden bg-neutral-900/30 border border-white/5 shadow-sm hover:border-[#51429A]/40 spring-bounce cursor-pointer translate-y-0 hover:-translate-y-3 hover:scale-[1.02] sm:col-span-1 md:col-span-1 animate-pulse"
+                     style="border-radius: 12px 40px 12px 40px;">
+                    <img src="https://i.postimg.cc/j5HPgfNq/hai-dao.jpg" 
+                         alt="万圣节的海盗妆造" 
+                         class="w-full h-auto block spring-bounce-img group-hover:scale-102 opacity-0"
+                         onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('animate-pulse')"
+                         onerror="handleImageError(this, 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=90')">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
+                        <p class="text-[#51429A] font-syne text-sm italic font-semibold">
+                            # 万圣节的海盗妆造
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 照片3 -->
+                <div class="group relative overflow-hidden bg-neutral-900/30 border border-white/5 shadow-sm hover:border-[#51429A]/40 spring-bounce cursor-pointer translate-y-0 hover:-translate-y-3 hover:scale-[1.02] w-full max-w-[85%] mx-auto sm:col-span-1 md:col-span-1 animate-pulse"
+                     style="border-radius: 40px 12px 40px 12px;">
+                    <img src="https://i.postimg.cc/D0CWHPwx/huan-qiu.jpg" 
+                         alt="环球记忆" 
+                         class="w-full h-auto block spring-bounce-img group-hover:scale-102 opacity-0"
+                         onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('animate-pulse')"
+                         onerror="handleImageError(this, 'https://images.unsplash.com/photo-1513885041403-40c44c326200?auto=format&fit=crop&w=2000&q=90')">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
+                        <p class="text-[#51429A] font-syne text-sm italic font-semibold">
+                            # 环球记忆
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 照片5 -->
+                <div class="group relative overflow-hidden bg-neutral-900/30 border border-white/5 shadow-sm hover:border-[#51429A]/40 spring-bounce cursor-pointer translate-y-0 hover:-translate-y-3 hover:scale-[1.02] animate-pulse"
+                     style="border-radius: 40px 12px 40px 12px;">
+                    <img src="https://i.postimg.cc/NjKThSTy/hei-se-xie-jian.jpg" 
+                         alt="一张光下的留影" 
+                         class="w-full h-auto block spring-bounce-img group-hover:scale-102 opacity-0"
+                         onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('animate-pulse')"
+                         onerror="handleImageError(this, 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=2000&q=90')">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
+                        <p class="text-[#51429A] font-syne text-sm italic font-semibold">
+                            # 一张光下的留影
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 照片6 -->
+                <div class="group relative overflow-hidden bg-neutral-900/30 border border-white/5 shadow-sm hover:border-[#51429A]/40 spring-bounce cursor-pointer translate-y-0 hover:-translate-y-3 hover:scale-[1.02] sm:col-span-1 md:col-span-1 animate-pulse"
+                     style="border-radius: 12px 40px 12px 40px;">
+                    <img src="https://i.postimg.cc/C1T6njYW/yi-he-yuan.jpg" 
+                         alt="颐和春影" 
+                         class="w-full h-auto block spring-bounce-img group-hover:scale-102 opacity-0"
+                         onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('animate-pulse')"
+                         onerror="handleImageError(this, 'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?auto=format&fit=crop&w=2000&q=90')">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
+                        <p class="text-[#51429A] font-syne text-sm italic font-semibold">
+                            # 颐和春影
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 照片4 -->
+                <div class="group relative overflow-hidden bg-neutral-900/30 border border-white/5 shadow-sm hover:border-[#51429A]/40 spring-bounce cursor-pointer translate-y-0 hover:-translate-y-3 hover:scale-[1.02] sm:col-span-1 md:col-span-1 animate-pulse"
+                     style="border-radius: 12px 40px 12px 40px;">
+                    <img src="https://i.postimg.cc/ZKKsNYtJ/zong-mao.jpg" 
+                         alt="鹭岛潮隅" 
+                         class="w-full h-auto block spring-bounce-img group-hover:scale-102 opacity-0"
+                         onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('animate-pulse')"
+                         onerror="this.src='https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=2000&q=90'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
+                        <p class="text-[#51429A] font-syne text-sm italic font-semibold">
+                            # 鹭岛潮隅
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 5. 联系方式与页脚 (Contact & Footer) -->
+    <!-- ========================================== -->
+    <footer id="contact" class="bg-[#030303] text-stone-400 py-16 px-6 md:px-12 border-t border-white/5 relative z-10">
+        <div class="max-w-5xl mx-auto text-center space-y-8">
+            
+            <!-- 友好邀请文案 -->
+            <div class="space-y-3">
+                <h3 class="text-3xl md:text-4xl font-syne text-white font-black uppercase tracking-wider">Get in Touch</h3>
+                <p class="text-sm tracking-widest text-[#51429A] uppercase font-semibold">LEAVE YOUR SPARK IN MY REALM</p>
+            </div>
+
+            <!-- 联系方式卡片 -->
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6 pt-4 text-stone-300">
+                <!-- 邮箱 -->
+                <div class="flex items-center gap-2.5 px-6 py-3 bg-[#0d0d0d] border border-white/5 rounded-full hover:border-[#51429A] hover:text-white transition-all cursor-pointer">
+                    <svg class="w-5 h-5 text-[#51429A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="text-sm font-medium">Email: 3088344985@qq.com</span>
+                </div>
+                <!-- 微信 -->
+                <div class="flex items-center gap-2.5 px-6 py-3 bg-[#0d0d0d] border border-white/5 rounded-full hover:border-[#51429A] hover:text-white transition-all cursor-pointer">
+                    <svg class="w-5 h-5 text-[#51429A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                    </svg>
+                    <span class="text-sm font-medium">WeChat: khr981021</span>
+                </div>
+            </div>
+
+            <!-- 社交媒体占位 -->
+            <div class="flex flex-wrap justify-center gap-4 pt-4">
+                <a href="#" class="text-xs tracking-widest px-4 py-1.5 border border-white/5 hover:border-[#51429A] hover:text-[#51429A] rounded-[10px_4px_10px_4px] transition-all">AIGC</a>
+                <a href="#" class="text-xs tracking-widest px-4 py-1.5 border border-white/5 hover:border-[#51429A] hover:text-[#51429A] rounded-[10px_4px_10px_4px] transition-all">UI设计</a>
+                <a href="#" class="text-xs tracking-widest px-4 py-1.5 border border-white/5 hover:border-[#51429A] hover:text-[#51429A] rounded-[10px_4px_10px_4px] transition-all">动效设计</a>
+                <a href="#" class="text-xs tracking-widest px-4 py-1.5 border border-white/5 hover:border-[#51429A] hover:text-[#51429A] rounded-[10px_4px_10px_4px] transition-all">用户体验</a>
+            </div>
+
+            <!-- 分割线 -->
+            <div class="w-full h-[1px] bg-white/5 max-w-md mx-auto pt-4"></div>
+
+            <!-- 版权声明 -->
+            <p class="text-xs text-stone-600 font-light font-mono">
+                &copy; 2026 KE HONGRUN All rights reserved. 
+            </p>
+
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- 5.5 返回顶部按钮 -->
+    <!-- ========================================== -->
+    <button id="backToTopBtn" 
+            onclick="scrollToTop()"
+            class="fixed bottom-8 right-8 z-50 p-4 bg-black/60 backdrop-blur-md border border-white/10 text-white/50 hover:text-white rounded-[15px_4px_15px_4px] hover:border-[#51429A]/80 hover:shadow-[0_0_25px_rgba(81,66,154,0.45)] hover:scale-105 active:scale-95 transition-all duration-500 opacity-0 translate-y-4 pointer-events-none group"
+            aria-label="Back to Top">
+        <svg class="w-4 h-4 transform group-hover:-translate-y-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7" />
+        </svg>
+    </button>
+
+    <!-- ========================================== -->
+    <!-- 6. 核心网页交互 JavaScript 驱动模块 -->
+    <!-- ========================================== -->
+    <script>
+        // ===================================================
+        // 💾 弹窗 PDF 文件直达链接配置文件（迭代重构）
+        // ===================================================
+        const projectData = {
+            project1: {
+                title: "星座说用户体验升级",
+                category: "UI / UX",
+                pdfUrl: "https://muke1021.github.io/portfolio/xingzuo/xingzushuo2.pdf"
+            },
+            project2: {
+                title: "Poke4.2.42热气球游戏",
+                category: "游戏 / UI",
+                pdfUrl: "https://muke1021.github.io/portfolio-muke/pdfs/reqiqiuyouxi.pdf"
+            },
+            project3: {
+                title: "Poke「友谊音乐会」商城主题装扮",
+                category: "视觉 / AIGC",
+                pdfUrl: "https://muke1021.github.io/portfolio-muke/pdfs/youyiyinyuehui.pdf"
+            },
+            project4: {
+                title: "星烛守护计划运营活动",
+                category: "运营 / AIGC",
+                pdfUrl: "https://muke1021.github.io/portfolio-muke/pdfs/xingzhushouhu.pdf"
+            }
+        };
+
+        // 0. 超清高抗容错图片异常处理器
+        function handleImageError(img, fallbackUrl) {
+            if (img.src.includes('postimg.cc') && img.src.endsWith('.jpg') && !img.dataset.triedPng) {
+                img.dataset.triedPng = "true";
+                img.src = img.src.replace('.jpg', '.png');
+            } 
+            else {
+                img.src = fallbackUrl;
+                img.classList.remove('opacity-0');
+                
+                const parentBox = img.closest('.animate-pulse');
+                if (parentBox) {
+                    parentBox.classList.remove('animate-pulse');
+                }
+            }
+        }
+
+        // ===================================================
+        // 💎 物理像素完美对齐引擎 (Precision Pixel-Snapping)
+        // ===================================================
+        function snapImagePixels() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.style.width = '';
+                img.style.height = '';
+            });
+            
+            requestAnimationFrame(() => {
+                images.forEach(img => {
+                    const rect = img.getBoundingClientRect();
+                    if (rect.width > 0 && rect.height > 0) {
+                        img.style.width = Math.round(rect.width) + 'px';
+                        img.style.height = Math.round(rect.height) + 'px';
+                    }
+                });
+            });
+        }
+        window.addEventListener('load', snapImagePixels);
+        window.addEventListener('resize', snapImagePixels);
+
+        // ===================================================
+        // 🚀 双通道完美 PDF 渲染器 (PDF.js Canvas + Gview Overlay Fallback)
+        // ===================================================
+        function renderPDFWithJS(pdfUrl, container) {
+            const loadingSpinner = document.getElementById('iframeLoading');
+            if (loadingSpinner) loadingSpinner.style.display = 'flex';
+
+            // 设置 PDF.js 的 Worker 路径
+            const pdfjsLib = window['pdfjs-dist/build/pdf'];
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+            const loadingTask = pdfjsLib.getDocument({
+                url: pdfUrl,
+                withCredentials: false
+            });
+
+            // 一通道：尝试使用 PDF.js Canvas 高清直读（免底栏，无遮挡）
+            loadingTask.promise.then(function(pdf) {
+                container.innerHTML = '';
+                if (loadingSpinner) loadingSpinner.style.display = 'none';
+
+                // 创建全景滑动视区
+                const scrollWrapper = document.createElement('div');
+                scrollWrapper.className = "w-full h-full overflow-y-auto px-4 md:px-12 py-8 flex flex-col items-center gap-8 custom-scrollbar bg-neutral-950";
+                
+                // 串行队列渲染，保障极端流畅度
+                let promiseChain = Promise.resolve();
+
+                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                    const pageContainer = document.createElement('div');
+                    pageContainer.className = "w-full max-w-4xl bg-neutral-900/30 rounded-2xl p-1 border border-white/5 shadow-2xl relative flex flex-col items-center mb-2";
+
+                    const canvas = document.createElement('canvas');
+                    canvas.className = "w-full h-auto rounded-xl block bg-neutral-950";
+                    pageContainer.appendChild(canvas);
+                    scrollWrapper.appendChild(pageContainer);
+
+                    promiseChain = promiseChain.then(((pageNumber, cv) => {
+                        return () => pdf.getPage(pageNumber).then(page => {
+                            // 渲染倍率设为 2.0，确保在大尺寸 PC 屏上极其细腻
+                            const viewport = page.getViewport({ scale: 2.0 });
+                            const context = cv.getContext('2d');
+                            cv.height = viewport.height;
+                            cv.width = viewport.width;
+
+                            return page.render({
+                                canvasContext: context,
+                                viewport: viewport
+                            }).promise;
+                        });
+                    })(pageNum, canvas));
+                }
+
+                container.appendChild(scrollWrapper);
+            }).catch(function(error) {
+                console.warn("PDF.js XHR限制，正在平滑回退至 Gview 智能裁剪隔离图层...", error);
+                loadGviewFallback(pdfUrl, container);
+            });
+        }
+
+        // 二通道：回退至 Gview 并完美裁剪谷歌多余的悬浮条
+        function loadGviewFallback(pdfUrl, container) {
+            container.innerHTML = '';
+            
+            // 创建裁剪视区
+            const cropWrapper = document.createElement('div');
+            cropWrapper.className = "w-full h-full overflow-hidden relative bg-neutral-950";
+            
+            const iframe = document.createElement('iframe');
+            // 将高度设为 calc(100% + 56px)，使谷歌底栏的错乱控制条溢出到视区之外，并被 wrapper 隐藏
+            iframe.src = `https://docs.google.com/gview?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
+            iframe.className = "w-full h-[calc(100%+56px)] border-0 absolute top-0 left-0 bg-neutral-950 z-10";
+            
+            iframe.onload = function() {
+                const loadingSpinner = document.getElementById('iframeLoading');
+                if (loadingSpinner) loadingSpinner.style.display = 'none';
+            };
+            
+            cropWrapper.appendChild(iframe);
+            container.appendChild(cropWrapper);
+        }
+
+        // 1. 打开项目弹窗的方法
+        function openProjectModal(projectId) {
+            const modal = document.getElementById('projectModal');
+            const modalBox = document.getElementById('modalBox');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalCategory = document.getElementById('modalCategory');
+            const imageContainer = document.getElementById('modalImageContainer'); 
+            const scrollArea = document.getElementById('modalScrollArea');
+            const openExternalBtn = document.getElementById('modalOpenExternal');
+
+            const data = projectData[projectId];
+            if (!data) return;
+
+            modalTitle.innerText = data.title;
+            modalCategory.innerText = data.category;
+            
+            if (openExternalBtn) {
+                openExternalBtn.href = data.pdfUrl;
+            }
+
+            // 清空并加载渲染
+            imageContainer.innerHTML = '';
+            scrollArea.classList.add('overflow-hidden');
+
+            renderPDFWithJS(data.pdfUrl, imageContainer);
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalBox.classList.remove('scale-95');
+                modalBox.classList.add('scale-100');
+            }, 10);
+
+            document.body.classList.add('overflow-hidden');
+        }
+
+        // 2. 关闭项目弹窗的方法
+        function closeProjectModal() {
+            const modal = document.getElementById('projectModal');
+            const modalBox = document.getElementById('modalBox');
+
+            modal.classList.add('opacity-0');
+            modalBox.classList.remove('scale-100');
+            modalBox.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+                
+                const imageContainer = document.getElementById('modalImageContainer');
+                if (imageContainer) {
+                    imageContainer.innerHTML = '';
+                }
+            }, 300);
+        }
+
+        // 3. 点击弹窗外的黑色阴影遮罩，自动关闭弹窗
+        function closeModalOnOutsideClick(event) {
+            const modalBox = document.getElementById('modalBox');
+            if (!modalBox.contains(event.target)) {
+                closeProjectModal();
+            }
+        }
+
+        // ===================================================
+        // Canvas Interactive Fluid Glow (双紫霓虹交互流体绘制)
+        // ===================================================
+        const canvas = document.getElementById('fluidGlowCanvas');
+        
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+
+            let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+            let target = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
+            let ambientLights = [
+                { x: 0.15, y: 0.25, vx: 0.0003, vy: 0.0004, size: 550, color: 'rgba(49, 34, 121, 0.22)' },  
+                { x: 0.85, y: 0.65, vx: -0.0002, vy: -0.0003, size: 650, color: 'rgba(81, 66, 154, 0.20)' },  
+                { x: 0.5, y: 0.45, vx: 0.0004, vy: -0.0002, size: 450, color: 'rgba(30, 15, 80, 0.4)' }      
+            ];
+
+            window.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                if (e.clientY <= window.innerHeight) {
+                    target.x = e.clientX - rect.left;
+                    target.y = e.clientY - rect.top;
+                }
+            });
+
+            // 保持原本流畅性
+            function resizeCanvas() {
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = window.innerWidth * dpr;
+                canvas.height = window.innerHeight * dpr;
+                ctx.scale(dpr, dpr);
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            function drawFluidGlow() {
+                const dpr = window.devicePixelRatio || 1;
+                const w = canvas.width / dpr;
+                const h = canvas.height / dpr;
+
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(0, 0, w, h);
+
+                ambientLights.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0.05 || p.x > 0.95) p.vx *= -1;
+                    if (p.y < 0.05 || p.y > 0.95) p.vy *= -1;
+
+                    const absX = p.x * w;
+                    const absY = p.y * h;
+
+                    const gradient = ctx.createRadialGradient(absX, absY, 0, absX, absY, p.size);
+                    gradient.addColorStop(0, p.color);
+                    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, w, h);
+                });
+
+                const logicalTargetX = target.x;
+                const logicalTargetY = target.y;
+                mouse.x += (logicalTargetX - mouse.x) * 0.045;
+                mouse.y += (logicalTargetY - mouse.y) * 0.045;
+
+                const mouseGradient = ctx.createRadialGradient(mouse.x, mouse.y, 10, mouse.x, mouse.y, 500);
+                mouseGradient.addColorStop(0, 'rgba(81, 66, 154, 0.28)'); 
+                mouseGradient.addColorStop(0.4, 'rgba(49, 34, 121, 0.12)'); 
+                mouseGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                ctx.fillStyle = mouseGradient;
+                ctx.fillRect(0, 0, w, h);
+
+                requestAnimationFrame(drawFluidGlow);
+            }
+
+            window.addEventListener('load', function () {
+                drawFluidGlow();
+            });
+        }
+
+        // ===================================================
+        // 🔮 Works 板块交互弥散鼠标跟随效果 (Works Glow Engine)
+        // ===================================================
+        const worksCanvas = document.getElementById('worksGlowCanvas');
+        if (worksCanvas) {
+            const wCtx = worksCanvas.getContext('2d');
+            let wMouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+            let wTarget = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+            
+            // 💡 特别定制淡雅随动色，精细通透，确保“颜色不至于太重”
+            let wAmbientLights = [
+                { x: 0.15, y: 0.3, vx: 0.0002, vy: 0.0003, size: 500, color: 'rgba(49, 34, 121, 0.12)' },  
+                { x: 0.85, y: 0.7, vx: -0.0001, vy: -0.0002, size: 550, color: 'rgba(81, 66, 154, 0.10)' },  
+                { x: 0.5, y: 0.5, vx: 0.0003, vy: -0.0001, size: 400, color: 'rgba(30, 15, 80, 0.15)' }      
+            ];
+
+            window.addEventListener('mousemove', (e) => {
+                const rect = worksCanvas.getBoundingClientRect();
+                wTarget.x = e.clientX - rect.left;
+                wTarget.y = e.clientY - rect.top;
+            });
+
+            // 保持流畅性
+            function resizeWorksCanvas() {
+                const dpr = window.devicePixelRatio || 1;
+                worksCanvas.width = worksCanvas.clientWidth * dpr;
+                worksCanvas.height = worksCanvas.clientHeight * dpr;
+                wCtx.scale(dpr, dpr);
+            }
+            window.addEventListener('resize', resizeWorksCanvas);
+            resizeWorksCanvas();
+
+            function drawWorksGlow() {
+                const dpr = window.devicePixelRatio || 1;
+                const w = worksCanvas.width / dpr;
+                const h = worksCanvas.height / dpr;
+
+                wCtx.fillStyle = '#050505'; // 纯净哑光暗夜底色
+                wCtx.fillRect(0, 0, w, h);
+
+                wAmbientLights.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0.05 || p.x > 0.95) p.vx *= -1;
+                    if (p.y < 0.05 || p.y > 0.95) p.vy *= -1;
+
+                    const absX = p.x * w;
+                    const absY = p.y * h;
+
+                    const gradient = wCtx.createRadialGradient(absX, absY, 0, absX, absY, p.size);
+                    gradient.addColorStop(0, p.color);
+                    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                    wCtx.fillStyle = gradient;
+                    wCtx.fillRect(0, 0, w, h);
+                });
+
+                wMouse.x += (wTarget.x - wMouse.x) * 0.045;
+                wMouse.y += (wTarget.y - wMouse.y) * 0.045;
+
+                // 💡 鼠标追逐弥散光：采用淡雅、透明度降维的紫色配置（颜色不要太重）
+                const mGradient = wCtx.createRadialGradient(wMouse.x, wMouse.y, 10, wMouse.x, wMouse.y, 500);
+                mGradient.addColorStop(0, 'rgba(81, 66, 154, 0.20)'); 
+                mGradient.addColorStop(0.5, 'rgba(49, 34, 121, 0.07)'); 
+                mGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                wCtx.fillStyle = mGradient;
+                wCtx.fillRect(0, 0, w, h);
+
+                requestAnimationFrame(drawWorksGlow);
+            }
+
+            window.addEventListener('load', () => {
+                resizeWorksCanvas();
+                drawWorksGlow();
+            });
+        }
+
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > window.innerHeight * 0.3) {
+                backToTopBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+                backToTopBtn.classList.add('opacity-100', 'translate-y-0');
+            } else {
+                backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+                backToTopBtn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // ===================================================
+        // ✨ 高性能循环可视区入场动画引擎
+        // ===================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                threshold: 0.08,
+                rootMargin: "0px 0px -40px 0px"
+            };
+
+            const elementObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    } else {
+                        // 循环触发机制：移出可视区后重置状态
+                        entry.target.classList.remove('is-visible');
+                    }
+                });
+            }, observerOptions);
+
+            // 动态挂载类：将入场过渡赋予页面上所有的图片、卡片和说明文本，不侵入大框架
+            const targets = document.querySelectorAll(
+                '#about .group, #about ul li, #about .sticky > div, ' +
+                '#works h2, #works p, #works .grid > div, ' +
+                '#lifestyle h2, #lifestyle h3, #lifestyle .grid > div, ' +
+                'footer h3, footer p, footer .flex > div'
+            );
+
+            targets.forEach(target => {
+                target.classList.add('entry-anim-item');
+                elementObserver.observe(target);
+            });
+        });
+
+        // ===================================================
+        // 🔮 鼠标拖尾 Canvas 渲染引擎 (多层清晰圆环 + 灵动粒子融合拖尾，不间断跟踪不消失)
+        // ===================================================
+        const trailCanvas = document.getElementById('cursorTrailCanvas');
+        if (trailCanvas) {
+            const trailCtx = trailCanvas.getContext('2d');
+            let coords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+            let active = false;
+            const particles = [];
+            const maxParticles = 65; // 合理增加限制以承载双形态粒子
+
+            // 指针悬浮检测：有鼠标的地方就有追踪
+            window.addEventListener('mousemove', (e) => {
+                coords.x = e.clientX;
+                coords.y = e.clientY;
+                active = true;
+                
+                // 每次移动鼠标，注入多态融合拖尾：
+                // 1. 经典主泡泡（白圈，带有清晰分阶不渐变的透明度）
+                particles.push({
+                    type: 'bubble',
+                    x: coords.x,
+                    y: coords.y,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    size: Math.random() * 8 + 16, // 16px - 24px 舒适大小
+                    alpha: 0.35,                  // 保持淡化不透明度
+                    decay: 0.012
+                });
+
+                // 2. 散射小火花（Spark 粒子），提升动效玩味感和科技灵动调性
+                if (Math.random() < 0.65) {
+                    particles.push({
+                        type: 'spark',
+                        x: coords.x,
+                        y: coords.y,
+                        vx: (Math.random() - 0.5) * 2.5,
+                        vy: (Math.random() - 0.5) * 2.5,
+                        size: Math.random() * 4 + 3, // 3px - 7px
+                        alpha: 0.30,
+                        decay: 0.015
+                    });
+                }
+
+                if (particles.length > maxParticles) {
+                    particles.shift();
+                }
+            });
+
+            window.addEventListener('mouseenter', () => { active = true; });
+            window.addEventListener('mouseleave', () => { active = false; });
+
+            function resizeTrailCanvas() {
+                trailCanvas.width = window.innerWidth;
+                trailCanvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeTrailCanvas);
+            resizeTrailCanvas();
+
+            function animateTrail() {
+                trailCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+                
+                // 💡 鼠标追踪持久不消失定位核：若鼠标在视区内，永远渲染一个轻微脉冲的白色核心，指示器更加灵敏
+                if (active) {
+                    // 正弦脉冲效果：6px - 9px 缩放
+                    const pulseSize = 6 + Math.sin(Date.now() * 0.008) * 1.5;
+                    trailCtx.fillStyle = `rgba(255, 255, 255, 0.22)`;
+                    trailCtx.beginPath();
+                    trailCtx.arc(coords.x, coords.y, pulseSize, 0, Math.PI * 2);
+                    trailCtx.fill();
+
+                    // 即使鼠标完全静止，也以 low 频几率产出微弱的小碎星（不消失，灵动有趣）
+                    if (Math.random() < 0.07) {
+                        particles.push({
+                            type: 'spark',
+                            x: coords.x + (Math.random() - 0.5) * 4,
+                            y: coords.y + (Math.random() - 0.5) * 4,
+                            vx: (Math.random() - 0.5) * 0.8,
+                            vy: (Math.random() - 0.5) * 0.8,
+                            size: Math.random() * 3 + 2,
+                            alpha: 0.18,
+                            decay: 0.01
+                        });
+                    }
+                }
+                
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    
+                    // 绘制纯白填充且边缘平实、绝不渐变虚化的清晰圆点
+                    trailCtx.fillStyle = `rgba(255, 255, 255, ${p.alpha * 0.4})`; // 配合整体减淡调稀
+                    
+                    trailCtx.beginPath();
+                    trailCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    trailCtx.fill();
+                    
+                    // 物理追逐与发散：
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    
+                    if (p.type === 'bubble') {
+                        p.size -= 0.35;
+                        // 大气泡粒子间添加拉丝咬合算法，营造极其流体阻尼的弹簧跟随感
+                        if (i < particles.length - 1 && particles[i+1].type === 'bubble') {
+                            p.x += (particles[i+1].x - p.x) * 0.26;
+                            p.y += (particles[i+1].y - p.y) * 0.26;
+                        }
+                    } else {
+                        // 碎散火花粒子的阻尼微减速
+                        p.size -= 0.12;
+                        p.vx *= 0.97;
+                        p.vy *= 0.97;
+                    }
+                    
+                    p.alpha -= p.decay;
+                }
+                
+                // 剔除消亡的尾迹粒子
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    if (particles[i].size <= 0.1 || particles[i].alpha <= 0) {
+                        particles.splice(i, 1);
+                    }
+                }
+                
+                requestAnimationFrame(animateTrail);
+            }
+            animateTrail();
+        }
+    </script>
+</body>
+</html>
